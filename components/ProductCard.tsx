@@ -14,14 +14,16 @@ const ProductCard = ({ product }: { product: Product }) => {
     <div className="text-sm border-[1px] border-dark_blue/20 rounded-md bg-white group ">
       <div className="relative group overflow-hidden bg-shop_light_bg">
         {product?.images && (
-          <Image
-            src={urlFor(product?.images[0]).url()}
-            alt="Product Image"
-            loading="lazy"
-            width={700}
-            height={700}
-            className={`w-full h-64 object-contain overflow-hidden transition-transform bg-shop_light_bg hoverEffect ${product?.stock !== 0 ? "group-hover:scale-105" : "opacity-50"}`}
-          />
+          <Link href={`/product/${product?.slug?.current}`}>
+            <Image
+              src={urlFor(product?.images[0]).url()}
+              alt="Product Image"
+              loading="lazy"
+              width={700}
+              height={700}
+              className={`w-full h-64 object-contain overflow-hidden transition-transform bg-shop_light_bg hoverEffect ${product?.stock !== 0 ? "group-hover:scale-105" : "opacity-50"}`}
+            />
+          </Link>
         )}
         <AddToWishlistButton product={product} />
         {product?.status === "sale" && (
@@ -81,8 +83,12 @@ const ProductCard = ({ product }: { product: Product }) => {
             {(product?.stock as number) > 0 ? product?.stock : "unavailable"}
           </p>
         </div>
-        <PriceView price={product?.price} discount={product?.discount} className="text-sm" />
-        <AddToCartButton product={product} className="w-36 rounded-full"/>
+        <PriceView
+          price={product?.price}
+          discount={product?.discount}
+          className="text-sm"
+        />
+        <AddToCartButton product={product} className="w-36 rounded-full" />
       </div>
     </div>
   );
